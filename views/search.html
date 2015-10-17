@@ -1,0 +1,62 @@
+<div class="container header">
+  <div class="row">
+    <div class="page-title col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 text-center">
+      <h1>
+        Profind
+      </h1>
+      <small class="quote">"Seek and ye shall find"</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="row">
+        <div class="col-xs-12 search-bar" ng-class="{'without-results': !results.length}">
+          <form ng-submit="searchByMail(email)">
+            <input type="email" class="form-control input-lg" placeholder="E-Mail Address of the individual you want to search for..." ng-model="email" ng-disabled="page.loading"/>
+            <button class="btn btn-danger" type="submit" ng-disabled="page.loading">
+              <span class="glyphicon glyphicon-search icon"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row alerts-container" data-ng-show="alerts.msgs.length">
+        <div class="col-xs-12">
+          <alert data-ng-repeat="alert in alerts.msgs" type="{{alert.type}}" close="alerts.closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+      </div>
+      <div class="row" ng-show="results.length">
+        <div ng-repeat="profile in results" class="col-xs-12 search-results">
+          <div class="well well-sm">
+            <div class="row">
+              <div class="col-sm-6 col-md-4">
+                <img ng-src="{{profile.photos[0].url}}" title="{{profile.photos[0].typeName}}" alt="" class="img-rounded img-responsive" />
+              </div>
+              <div class="col-sm-6 col-md-8">
+                <h4>{{ profile.contactInfo.fullName }}</h4>
+                <small><cite title="{{profile.demographics.locationDeduced.deducedLocation}}">{{profile.demographics.locationDeduced.deducedLocation}} <i class="glyphicon glyphicon-map-marker">
+                </i></cite></small>
+                <p>
+                  <i class="glyphicon glyphicon-envelope"></i> {{ email }}
+                  <br />
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default" ng-repeat="socialProfile in profile.socialProfiles">
+            <div class="panel-heading"><span class="{{ social_networks[socialProfile.type].icon_class }}"></span> {{ profile.contactInfo.fullName }}'s {{ socialProfile.typeName }} Profile</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-8">
+                  Bio: {{ socialProfile.bio }}
+                </div>
+                <div class="col-md-4">
+                  <a class="btn btn-primary pull-right" href="{{ socialProfile.url }}" target="_blank">Visit Profile</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
