@@ -8,17 +8,17 @@
     </div>
   </div>
   <div class="row">
+    <div class="search-bar" ng-class="{'col-sm-offset-1 col-sm-10': !results.length, 'col-sm-offset-3 col-sm-6': results.length}">
+      <form ng-submit="searchByMail(email)">
+        <input type="email" class="form-control input-lg" placeholder="E-Mail Address of the individual you want to search for..." ng-model="email" ng-disabled="page.loading"/>
+        <button class="btn btn-danger" type="submit" ng-disabled="page.loading">
+          <span class="glyphicon glyphicon-search icon"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <div class="row">
-        <div class="col-xs-12 search-bar" ng-class="{'without-results': !results.length}">
-          <form ng-submit="searchByMail(email)">
-            <input type="email" class="form-control input-lg" placeholder="E-Mail Address of the individual you want to search for..." ng-model="email" ng-disabled="page.loading"/>
-            <button class="btn btn-danger" type="submit" ng-disabled="page.loading">
-              <span class="glyphicon glyphicon-search icon"></span>
-            </button>
-          </form>
-        </div>
-      </div>
       <div class="row alerts-container" data-ng-show="alerts.msgs.length">
         <div class="col-xs-12">
           <alert data-ng-repeat="alert in alerts.msgs" type="{{alert.type}}" close="alerts.closeAlert($index)">{{alert.msg}}</alert>

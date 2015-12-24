@@ -59,8 +59,8 @@ define(['js/app'], function (app) {
             resolveDependencies = function ($q, $rootScope, dependencies) {
                 var defer = $q.defer();
                 require(dependencies, function () {
-                    defer.resolve();
-                    $rootScope.$apply()
+                    defer.resolve(); // resolving a promise after all js dependencies, required by the route, have been loaded
+                    $rootScope.$apply(); // update bindings as require is not a part of angular library
                 });
 
                 return defer.promise;
